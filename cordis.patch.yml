@@ -1,0 +1,8 @@
+# dsh-haruhi-persona —— bundle 挂载声明
+# 安装后本包即向 profile 插入一行 haruhi-persona；配置默认开启。
+# 真正的用户设置存在 $DSH_HOME/haruhi-persona/config.json，由设置页读写。
+- insert:
+    - id: haruhi-persona
+      name: dsh-haruhi-persona
+      config:
+        enabled: true
