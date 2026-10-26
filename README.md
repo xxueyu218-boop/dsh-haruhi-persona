@@ -6,7 +6,7 @@
 
 - 输入框左侧「春日」按钮：按会话切换；亮起才是春日，切回普通立即失效。
 - 0–100 人格滑块 + 四套预设；人格提示词可在设置页直接编辑，固定安全段置顶。
-- 启动动画（可跳过、可点击跳过）、启动音效。
+- 启动动画、启动音效、自定义启动欢迎语。
 - 春日会话直接回答，不显示思考 / 已完成 / 用时等状态行。
 - 颜文字表情，频率由「表情频率」滑块控制。
 - 4K 聊天壁纸，仅春日会话启用，浅色/深色分别适配。
@@ -14,11 +14,16 @@
 
 ## 安装
 
+### 方式一：从 Release 安装（推荐）
+
+1. 在本仓库右侧 **Releases** 里下载 `dsh-haruhi-persona-<版本>.tgz`。
+2. 执行：
+
 ```bash
-dsh plugin --profile <profile> add dsh-haruhi-persona
+dsh plugin --profile <profile> add "下载路径/dsh-haruhi-persona-1.13.1.tgz"
 ```
 
-或把本目录链接进 profile：
+### 方式二：从仓库源码链接
 
 ```bash
 dsh plugin --profile <profile> add link:/path/to/dsh-haruhi-persona
