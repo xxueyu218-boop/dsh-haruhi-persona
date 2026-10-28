@@ -1,6 +1,6 @@
 {
   "name": "dsh-haruhi-persona",
-  "version": "1.13.1",
+  "version": "1.14.0",
   "description": "凉宫春日风格的可调人格插件：按会话切换、可调参数、颜文字、4K 聊天壁纸。同人非官方。",
   "keywords": [
     "dsh",
@@ -28,6 +28,7 @@
     "background.jpg",
     "cordis.patch.yml",
     "README.md",
+    "docs",
     "LICENSE"
   ],
   "dsh": {

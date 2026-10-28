@@ -159,6 +159,61 @@ window.__ModuleLoader__.load({
         welcome: '启动欢迎语',
         welcomeHint: '启动动画里显示这一句；留空用「欢迎，鳕鱼」。',
         welcomePlaceholder: '欢迎，鳕鱼',
+        voiceTitle: '语音回复',
+        voiceEnable: '启用语音',
+        voiceEnableHint: '用克隆出来的声线朗读春日的回复。',
+        voiceAuto: '自动朗读',
+        voiceAutoHint: '开启后每条回复完成时自动播放；关闭则只显示「语音」按钮。',
+        voiceAutoStart: '开机自动启动服务',
+        voiceAutoStartHint: '开启后下次开机只启动本地服务、不加载模型；模型在打开插件时预热。',
+        voicePreload: '打开插件时加载模型',
+        voicePreloadHint: '开启后插件一打开就预热，首句更快；关闭则第一句语音时才加载。',
+        voiceUnload: '空闲卸载模型',
+        voiceUnloadHint: '模型约占用 2.5 GB 显存，卸载后释放；多久没用语音就把模型移出显存，下次说话会自动重新加载。',
+        unload15: '15 分钟：显存释放最快，适合偶尔用语音；代价是经常要等 30–60 秒重新加载。',
+        unload60: '60 分钟：日常最平衡，闲置一小时才卸载，偶尔等一次首句。',
+        unload120: '120 分钟：显存占用较久，首句很少需要等，适合一天内频繁使用。',
+        unload240: '240 分钟：基本常驻显存，首句几乎不用等，但长期占用约 2.5 GB。',
+        voiceKey: 'Fish Audio 密钥',
+        voiceKeyHint: '只保存在本机，以 sk-fish- 开头；不会写进仓库。',
+        voiceKeyConfigured: '已配置（留空不改）',
+        voiceSaveKey: '保存密钥',
+        voiceClone: '上传音源',
+        voiceCloneHint: '10–30 秒干净人声，mp3/wav；上传后几秒内可用。',
+        voiceCloning: '克隆中…',
+        voiceCloned: '音色已就绪，可以试听了。',
+        voiceNoModel: '还没有音色，先上传音源。',
+        voiceTest: '试听',
+        voiceRemove: '清除音色',
+        voicePlaying: '播放中…',
+        voicePlay: '语音',
+        voiceZh: '中文音色',
+        voiceJa: '日语音色',
+        voiceNoZh: '未绑定中文音色',
+        voiceNoJa: '未绑定日语音色',
+        voiceJaHint: '日语音色请用日语人声克隆；拿中文样本克隆会带中文口音。',
+        ttsProvider: 'TTS 引擎',
+        providerFish: 'Fish Audio',
+        providerGpt: 'GPT-SoVITS',
+        gptUrl: 'GPT-SoVITS 地址',
+        gptRef: '参考音频路径',
+        gptPrompt: '参考文本',
+        gptHint: '本地 api_v2.py 默认 http://127.0.0.1:9880；参考音频与文本要对应。',
+        mizuUrl: 'Mizuoto 地址',
+        mizuModel: '模型 ID',
+        mizuVoice: '音色 ID',
+        mizuHint: '先在 Mizuoto 创建音色，把音色 ID 填到这里；默认地址 http://127.0.0.1:7869。',
+        voiceFetch: '获取音色列表',
+        voiceFetchHint: '从 Mizuoto 读取已创建的音色，选中即可自动填 ID。',
+        voiceSelect: '选择音色',
+        mizuBat: 'Mizuoto 启动脚本（可选）',
+        mizuBatHint: '填你本机的启动脚本路径，插件才能自动启动/开机自启；留空则需手动开 Mizuoto。',
+        replyLimit: '回复字数上限',
+        replyLimitHint: '超过这个字数的回复会被截断；建议 80–150，太短会说不完整。',
+        language: '回复语言',
+        languageHint: '中文或日文；只影响春日的回复，不影响界面。',
+        langZh: '中文',
+        langJa: '日本語',
         preview: '人格编辑器',
         previewHint: '直接改下面这段；改完保存。安全底线固定在最前。',
         previewAutoHint: '按当前参数自动生成；动一个字就转手动。',
@@ -170,7 +225,7 @@ window.__ModuleLoader__.load({
         saved: '已保存，下一步对话就会生效。',
         saveFail: '保存失败',
         reset: '恢复默认',
-        resetDone: '已恢复为标准版。',
+        resetDone: '已恢复为默认设置。',
         dirty: '有未保存的修改',
         clean: '已保存',
         loading: '读设置中…',
@@ -179,7 +234,7 @@ window.__ModuleLoader__.load({
         chars: '字',
         presetCalm: '冷静版',
         presetCalmTag: '低刺激 · 适合工作',
-        presetStandard: '标准版',
+        presetStandard: '默认',
         presetStandardTag: '团长气质 · 默认',
         presetWild: '暴走版',
         presetWildTag: '高能 · 头脑风暴',
@@ -213,6 +268,61 @@ window.__ModuleLoader__.load({
         welcome: 'Welcome line',
         welcomeHint: 'Shown in the startup animation; empty falls back to the default.',
         welcomePlaceholder: 'Welcome, codfish',
+        voiceTitle: 'Voice replies',
+        voiceEnable: 'Enable voice',
+        voiceEnableHint: 'Read Haruhi replies with the cloned voice.',
+        voiceAuto: 'Auto play',
+        voiceAutoHint: 'Play each finished reply automatically; off shows a Voice button.',
+        voiceAutoStart: 'Start service at boot',
+        voiceAutoStartHint: 'On: next boot starts the local service only, without loading the model; the model preheats when the plugin opens.',
+        voicePreload: 'Load model when plugin opens',
+        voicePreloadHint: 'Prefetch on open for a fast first line; off loads on first speech.',
+        voiceUnload: 'Unload when idle',
+        voiceUnloadHint: 'The model uses about 2.5 GB of VRAM and frees it when unloaded; after this much idle time it leaves VRAM and reloads on the next speech.',
+        unload15: '15 min: fastest VRAM release, best for occasional use; often waits 30–60 s to reload.',
+        unload60: '60 min: balanced; unloads after an hour idle, occasional wait for the first line.',
+        unload120: '120 min: keeps VRAM longer, rarely waits; good for frequent daily use.',
+        unload240: '240 min: nearly always resident, almost no wait, but holds about 2.5 GB.',
+        voiceKey: 'Fish Audio key',
+        voiceKeyHint: 'Stored locally only; starts with sk-fish- and never goes into the repo.',
+        voiceKeyConfigured: 'Configured (leave empty to keep)',
+        voiceSaveKey: 'Save key',
+        voiceClone: 'Upload sample',
+        voiceCloneHint: '10–30s clean speech, mp3/wav; ready a few seconds after upload.',
+        voiceCloning: 'Cloning…',
+        voiceCloned: 'Voice is ready to preview.',
+        voiceNoModel: 'No voice yet. Upload a sample first.',
+        voiceTest: 'Preview',
+        voiceRemove: 'Remove voice',
+        voicePlaying: 'Playing…',
+        voicePlay: 'Voice',
+        voiceZh: 'Chinese voice',
+        voiceJa: 'Japanese voice',
+        voiceNoZh: 'No Chinese voice yet',
+        voiceNoJa: 'No Japanese voice yet',
+        voiceJaHint: 'Clone the Japanese voice from a Japanese sample; a Chinese sample keeps a Chinese accent.',
+        ttsProvider: 'TTS engine',
+        providerFish: 'Fish Audio',
+        providerGpt: 'GPT-SoVITS',
+        gptUrl: 'GPT-SoVITS URL',
+        gptRef: 'Reference audio path',
+        gptPrompt: 'Reference text',
+        gptHint: 'Local api_v2.py defaults to http://127.0.0.1:9880; audio and text must match.',
+        mizuUrl: 'Mizuoto URL',
+        mizuModel: 'Model ID',
+        mizuVoice: 'Voice ID',
+        mizuHint: 'Create a voice in Mizuoto first and paste its ID here; default http://127.0.0.1:7869.',
+        voiceFetch: 'Fetch voice list',
+        voiceFetchHint: 'Read voices from Mizuoto and pick one to fill the ID.',
+        voiceSelect: 'Choose a voice',
+        mizuBat: 'Mizuoto launcher (optional)',
+        mizuBatHint: 'Path to your launcher script so the plugin can auto-start it; leave empty to start Mizuoto manually.',
+        replyLimit: 'Reply length limit',
+        replyLimitHint: 'Replies longer than this are cut; 80–150 works best.',
+        language: 'Reply language',
+        languageHint: 'Chinese or Japanese; affects Haruhi replies only, not the UI.',
+        langZh: '中文',
+        langJa: '日本語',
         preview: 'Persona editor',
         previewHint: 'Edit the text below and save. The safety floor stays pinned at the top.',
         previewAutoHint: 'Generated from the current settings; typing switches to manual.',
@@ -233,7 +343,7 @@ window.__ModuleLoader__.load({
         chars: 'chars',
         presetCalm: 'Calm',
         presetCalmTag: 'Low intensity · work',
-        presetStandard: 'Standard',
+        presetStandard: 'Default',
         presetStandardTag: 'Brigade mood · default',
         presetWild: 'Wild',
         presetWildTag: 'High energy · brainstorming',
@@ -282,17 +392,11 @@ window.__ModuleLoader__.load({
       return english ? { ...item, ...english } : item
     }
 
-    function presetName(preset, t) {
-      if (PRESET_IDS.includes(preset.id)) {
-        return t('preset' + preset.id.charAt(0).toUpperCase() + preset.id.slice(1))
-      }
+    function presetName(preset) {
       return preset.name
     }
 
-    function presetTag(preset, t) {
-      if (PRESET_IDS.includes(preset.id)) {
-        return t('preset' + preset.id.charAt(0).toUpperCase() + preset.id.slice(1) + 'Tag')
-      }
+    function presetTag(preset) {
       return preset.tagline
     }
 
@@ -327,6 +431,7 @@ html[data-hp-theme="dark"][data-hp-chat="on"][data-hp-ready="1"] body::after{mix
 [data-hp="preset"]{display:flex;flex-direction:column;gap:2px;text-align:left;padding:10px 12px;border-radius:10px;border:1px solid var(--dsw-alias-border-l1);background:transparent;color:inherit;cursor:pointer;font-family:inherit;}
 [data-hp="preset"]:hover{background:var(--dsw-alias-bg-layer-2);}
 [data-hp="preset"][data-active]{border-color:var(--dsw-alias-brand-primary);background:var(--dsw-alias-bg-layer-2);}
+[data-hp="btn"][data-active]{border-color:var(--dsw-alias-brand-primary);color:var(--dsw-alias-brand-primary);}
 [data-hp="preset-name"]{font-size:13px;font-weight:600;line-height:18px;}
 [data-hp="preset-tag"]{font-size:11px;line-height:15px;color:var(--dsw-alias-label-secondary);}
 [data-hp="btn"]{padding:7px 14px;border-radius:8px;font-size:12px;line-height:16px;cursor:pointer;font-family:inherit;white-space:nowrap;border:1px solid var(--dsw-alias-border-l2);background:transparent;color:var(--dsw-alias-label-primary);}
@@ -351,8 +456,11 @@ html[data-hp-theme="dark"][data-hp-chat="on"][data-hp-ready="1"] body::after{mix
 [data-hp-avatar-icon]{width:18px;height:18px;border-radius:50%;object-fit:cover;border:1px solid var(--dsw-alias-brand-primary);}
 [data-hp-turn-head]{display:flex;align-items:center;gap:8px;padding:6px 0 2px;font-size:11px;color:var(--dsw-alias-label-secondary);}
 [data-hp-turn-head] img{width:24px;height:24px;border-radius:50%;object-fit:cover;border:1px solid var(--dsw-alias-border-l2);}
-[data-hp-byline]{display:inline-block;width:0;height:0; overflow:visible;}
-[data-hp-fixed-avatar]{position:fixed;width:24px;height:24px;border-radius:50%;object-fit:cover;border:2px solid var(--dsw-alias-border-l2);z-index:20;pointer-events:none;visibility:hidden;}
+[data-hp-byline]{display:inline-flex;align-items:center;gap:4px;}
+[data-hp="voice"]{border:1px solid var(--dsw-alias-border-l2);background:transparent;color:var(--dsw-alias-label-secondary);border-radius:6px;padding:1px 7px;font-size:11px;line-height:16px;cursor:pointer;}
+[data-hp="voice"]:hover{color:var(--dsw-alias-label-primary);border-color:var(--dsw-alias-border-l3);}
+[data-hp="voice"]:disabled{opacity:.5;cursor:default;}
+[data-hp-abs-avatar]{position:absolute;width:24px;height:24px;border-radius:50%;object-fit:cover;border:2px solid var(--dsw-alias-border-l2);z-index:3;pointer-events:none;display:none;}
 [data-hp-dot]{width:6px;height:6px;border-radius:50%;background:var(--dsw-alias-state-idle-primary);}
 [data-hp-quick-btn][data-on] [data-hp-dot]{background:var(--dsw-alias-state-success-primary);}
 [data-hp-quick-btn][disabled]{opacity:.45;cursor:default;}
@@ -455,6 +563,146 @@ html[data-hp-theme="dark"][data-hp-chat="on"][data-hp-ready="1"] body::after{mix
       return data
     }
 
+    let voiceAudio = null
+    function playVoiceBlob(blob) {
+      try {
+        if (voiceAudio) voiceAudio.pause()
+        const url = URL.createObjectURL(blob)
+        const audio = new Audio(url)
+        voiceAudio = audio
+        audio.onended = () => {
+          URL.revokeObjectURL(url)
+          if (voiceAudio === audio) voiceAudio = null
+        }
+        audio.play().catch(() => { /* 浏览器可能拦自动播放 */ })
+        return audio
+      } catch {
+        return null
+      }
+    }
+
+    const autoPlayedIds = new Set()
+    let autoPlayCutoff = 0
+    let lastSpokenMessage = { id: '', at: 0 }
+    let globalSpeaking = false
+
+    function splitSpeech(text) {
+      const parts = String(text).split(/(?<=[。！？!?\n])/).map((part) => part.trim()).filter(Boolean)
+      const chunks = []
+      let current = ''
+      let limit = 40
+      const push = (value) => {
+        chunks.push(value)
+        limit = 100
+      }
+      for (let part of parts) {
+        while (part.length > limit) {
+          if (current) {
+            push(current)
+            current = ''
+          }
+          push(part.slice(0, limit))
+          part = part.slice(limit)
+        }
+        if (current && (current + part).length > limit) {
+          push(current)
+          current = part
+        } else {
+          current += part
+        }
+      }
+      if (current) push(current)
+      return chunks
+    }
+
+    const voiceBlobCache = new Map()
+    async function synthesizeCached(text, language, sessionId) {
+      const key = (language === 'ja' ? 'ja' : 'zh') + '|' + text
+      const cached = voiceBlobCache.get(key)
+      if (cached) return cached
+      const task = synthesizeVoice(text, language, sessionId)
+      voiceBlobCache.set(key, task)
+      try {
+        const blob = await task
+        voiceBlobCache.set(key, blob)
+        if (voiceBlobCache.size > 40) voiceBlobCache.clear()
+        return blob
+      } catch (error) {
+        voiceBlobCache.delete(key)
+        throw error
+      }
+    }
+
+    function waitAudio(audio) {
+      return new Promise((resolve) => {
+        if (!audio) {
+          resolve()
+          return
+        }
+        const done = () => resolve()
+        audio.addEventListener('ended', done, { once: true })
+        audio.addEventListener('error', done, { once: true })
+        setTimeout(done, 20000)
+      })
+    }
+
+    async function synthesizeVoice(text, language, sessionId) {
+      const res = await fetch(API + '/voice/tts', {
+        method: 'POST',
+        credentials: 'same-origin',
+        headers: { 'content-type': 'application/json' },
+        body: JSON.stringify({ text, language: language === 'ja' ? 'ja' : 'zh', sessionId: sessionId || '' }),
+      })
+      if (!res.ok) {
+        let message = '语音合成失败'
+        try {
+          const data = await res.json()
+          if (data?.error) message = data.error
+        } catch { /* 不是 JSON */ }
+        throw new Error(message)
+      }
+      return res.blob()
+    }
+
+    class PanelBoundary extends React.Component {
+      constructor(props) {
+        super(props)
+        this.state = { error: null }
+      }
+
+      static getDerivedStateFromError(error) {
+        return { error }
+      }
+
+      componentDidCatch(error, info) {
+        try {
+          fetch(API + '/debug', {
+            method: 'POST',
+            credentials: 'same-origin',
+            headers: { 'content-type': 'application/json' },
+            body: JSON.stringify({
+              type: 'render',
+              message: String(error && error.message ? error.message : error),
+              stack: String(error && error.stack ? error.stack : ''),
+              componentStack: String(info && info.componentStack ? info.componentStack : ''),
+              time: Date.now(),
+            }),
+          }).catch(() => {})
+        } catch { /* 调试上报失败也不影响页面 */ }
+      }
+
+      render() {
+        if (this.state.error) {
+          const message = String(this.state.error && this.state.error.message ? this.state.error.message : this.state.error)
+          const stack = String(this.state.error && this.state.error.stack ? this.state.error.stack : '')
+          return h('div', { 'data-hp': 'page' },
+            h('div', { 'data-hp': 'center' }, '设置页渲染失败：' + message),
+            h('pre', { 'data-hp': 'safety-pre' }, stack))
+        }
+        return this.props.children
+      }
+    }
+
     function Panel() {
       const t = makeT()
       const [loaded, setLoaded] = React.useState(false)
@@ -467,6 +715,13 @@ html[data-hp-theme="dark"][data-hp-chat="on"][data-hp-ready="1"] body::after{mix
       const [mode, setMode] = React.useState('auto')
       const [customPrompt, setCustomPrompt] = React.useState('')
       const [welcome, setWelcome] = React.useState('欢迎，鳕鱼')
+      const [language, setLanguage] = React.useState('ja')
+      const [replyLimit, setReplyLimit] = React.useState(120)
+      const [voiceOptions, setVoiceOptions] = React.useState([])
+      const [voice, setVoice] = React.useState({ enabled: false, autoPlay: false, hasKey: false, modelId: '', modelIdJa: '', voiceName: '', voiceNameJa: '' })
+      const [voiceKey, setVoiceKey] = React.useState('')
+      const [voiceBusy, setVoiceBusy] = React.useState('')
+      const [voiceMsg, setVoiceMsg] = React.useState(null)
       const [safety, setSafety] = React.useState('')
       const [body, setBody] = React.useState('')
       const [dirty, setDirty] = React.useState(false)
@@ -490,6 +745,26 @@ html[data-hp-theme="dark"][data-hp-chat="on"][data-hp-ready="1"] body::after{mix
         setMode(data.mode === 'custom' ? 'custom' : 'auto')
         setCustomPrompt(typeof data.customPrompt === 'string' ? data.customPrompt : '')
         setWelcome(typeof data.welcome === 'string' ? data.welcome : '欢迎，鳕鱼')
+        setLanguage('ja')
+        setReplyLimit(Number.isFinite(Number(data.replyLimit)) ? Number(data.replyLimit) : 120)
+        setVoice(data.voice && typeof data.voice === 'object'
+          ? {
+            enabled: data.voice.enabled === true,
+            autoPlay: data.voice.autoPlay === true,
+            autoStart: data.voice.autoStart === true,
+            preload: data.voice.preload !== false,
+            hasKey: data.voice.hasKey === true,
+            modelId: typeof data.voice.modelId === 'string' ? data.voice.modelId : '',
+            modelIdJa: typeof data.voice.modelIdJa === 'string' ? data.voice.modelIdJa : '',
+            voiceName: typeof data.voice.voiceName === 'string' ? data.voice.voiceName : '',
+            voiceNameJa: typeof data.voice.voiceNameJa === 'string' ? data.voice.voiceNameJa : '',
+            mizuUrl: typeof data.voice.mizuUrl === 'string' ? data.voice.mizuUrl : 'http://127.0.0.1:7869',
+            mizuModel: typeof data.voice.mizuModel === 'string' ? data.voice.mizuModel : '',
+            mizuVoice: typeof data.voice.mizuVoice === 'string' ? data.voice.mizuVoice : '',
+            mizuBat: typeof data.voice.mizuBat === 'string' ? data.voice.mizuBat : '',
+            unloadMinutes: Number.isFinite(Number(data.voice.unloadMinutes)) ? Number(data.voice.unloadMinutes) : 60,
+          }
+          : { enabled: false, autoPlay: false, autoStart: false, preload: true, unloadMinutes: 60, hasKey: false, modelId: '', modelIdJa: '', voiceName: '', voiceNameJa: '', mizuUrl: 'http://127.0.0.1:7869', mizuModel: '', mizuVoice: '', mizuBat: '' })
         setSafety(typeof data.safety === 'string' ? data.safety : '')
         setBody(typeof data.body === 'string' ? data.body : '')
         setPresets(Array.isArray(data.presets) ? data.presets : [])
@@ -516,7 +791,7 @@ html[data-hp-theme="dark"][data-hp-chat="on"][data-hp-ready="1"] body::after{mix
         if (!loaded || !params || mode === 'custom') return undefined
         let alive = true
         const timer = setTimeout(() => {
-          callApi('/preview', { method: 'POST', body: JSON.stringify({ params, mode: 'auto', customPrompt: '' }) })
+          callApi('/preview', { method: 'POST', body: JSON.stringify({ params, mode: 'auto', customPrompt: '', language }) })
             .then((data) => {
               if (!alive) return
               setSafety(data.safety || '')
@@ -525,7 +800,7 @@ html[data-hp-theme="dark"][data-hp-chat="on"][data-hp-ready="1"] body::after{mix
             .catch(() => { /* 预览失败不打断编辑 */ })
         }, 180)
         return () => { alive = false; clearTimeout(timer) }
-      }, [loaded, params, mode])
+      }, [loaded, params, mode, language])
 
       const patchParam = (key, value) => {
         setParams((prev) => ({ ...prev, [key]: value }))
@@ -548,7 +823,7 @@ html[data-hp-theme="dark"][data-hp-chat="on"][data-hp-ready="1"] body::after{mix
         try {
           const data = await callApi('/config', {
             method: 'POST',
-            body: JSON.stringify({ enabled, params, preset, mode, customPrompt, welcome }),
+            body: JSON.stringify({ enabled, params, preset, mode, customPrompt, welcome, language: 'ja' }),
           })
           adopt(data)
           setMessage({ tone: 'good', text: t('saved') })
@@ -570,6 +845,139 @@ html[data-hp-theme="dark"][data-hp-chat="on"][data-hp-ready="1"] body::after{mix
           setMessage({ tone: 'bad', text: t('saveFail') + '：' + String(error?.message ?? error) })
         } finally {
           setBusy('')
+        }
+      }
+
+      const patchVoice = async (patch) => {
+        setVoiceBusy('config')
+        setVoiceMsg(null)
+        try {
+          const data = await callApi('/voice/config', { method: 'POST', body: JSON.stringify(patch) })
+          if (data.voice) setVoice(data.voice)
+        } catch (error) {
+          setVoiceMsg({ tone: 'bad', text: String(error?.message ?? error) })
+        } finally {
+          setVoiceBusy('')
+        }
+      }
+
+      const applyLanguage = async (value) => {
+        const next = value === 'ja' ? 'ja' : 'zh'
+        setLanguage(next)
+        setMessage(null)
+        try {
+          const data = await callApi('/config', { method: 'POST', body: JSON.stringify({ language: next }) })
+          const saved = data.language === 'ja' ? 'ja' : 'zh'
+          setLanguage(saved)
+          window.dispatchEvent(new CustomEvent('haruhi-language', { detail: { language: saved } }))
+        } catch (error) {
+          setMessage({ tone: 'bad', text: String(error?.message ?? error) })
+        }
+      }
+
+      const loadVoices = async () => {
+        try {
+          const data = await callApi('/voice/voices')
+          setVoiceOptions(Array.isArray(data.voices) ? data.voices : [])
+          if (!data.voices || !data.voices.length) {
+            setVoiceMsg({ tone: 'bad', text: 'Mizuoto 里还没有音色，先去创建一个。' })
+          }
+        } catch (error) {
+          setVoiceMsg({ tone: 'bad', text: String(error?.message ?? error) })
+        }
+      }
+
+      const applyReplyLimit = async (value) => {
+        const next = Math.max(20, Math.min(500, Math.round(Number(value) || 120)))
+        setReplyLimit(next)
+        try {
+          await callApi('/config', { method: 'POST', body: JSON.stringify({ replyLimit: next }) })
+        } catch { /* 保存失败就保持当前值 */ }
+      }
+
+      const saveVoiceKey = async () => {
+        const key = voiceKey.trim()
+        if (!key) return
+        setVoiceBusy('key')
+        setVoiceMsg(null)
+        try {
+          const data = await callApi('/voice/key', { method: 'POST', body: JSON.stringify({ key }) })
+          if (data.voice) setVoice(data.voice)
+          setVoiceKey('')
+          setVoiceMsg({ tone: 'good', text: t('voiceKeyConfigured') })
+        } catch (error) {
+          setVoiceMsg({ tone: 'bad', text: String(error?.message ?? error) })
+        } finally {
+          setVoiceBusy('')
+        }
+      }
+
+      const cloneVoice = (language) => async (event) => {
+        const file = event.target.files && event.target.files[0]
+        event.target.value = ''
+        if (!file) return
+        setVoiceBusy('clone')
+        setVoiceMsg({ tone: 'good', text: t('voiceCloning') })
+        try {
+          const buffer = await file.arrayBuffer()
+          const res = await fetch(API + '/voice/clone', {
+            method: 'POST',
+            credentials: 'same-origin',
+            headers: {
+              'content-type': file.type || 'audio/mpeg',
+              'x-file-name': encodeURIComponent(file.name || 'voice.mp3'),
+              'x-voice-lang': language === 'ja' ? 'ja' : 'zh',
+            },
+            body: buffer,
+          })
+          let data = null
+          try { data = await res.json() } catch { /* 非 JSON */ }
+          if (!res.ok || !data || data.ok === false) {
+            throw new Error(data?.error || ('克隆失败（HTTP ' + res.status + '）'))
+          }
+          if (data.voice) setVoice(data.voice)
+          setVoiceMsg({ tone: 'good', text: t('voiceCloned') })
+        } catch (error) {
+          setVoiceMsg({ tone: 'bad', text: String(error?.message ?? error) })
+        } finally {
+          setVoiceBusy('')
+        }
+      }
+
+      const testVoice = (language) => async () => {
+        setVoiceBusy('test')
+        setVoiceMsg(null)
+        try {
+          const sample = language === 'ja' ? 'ねえ、聞こえる？涼宮春日よ。' : '喂，听得到吗？我是凉宫春日。'
+          const res = await fetch(API + '/voice/play', {
+            method: 'POST',
+            credentials: 'same-origin',
+            headers: { 'content-type': 'application/json' },
+            body: JSON.stringify({ text: sample, sessionId: 'test' }),
+          })
+          let data = null
+          try { data = await res.json() } catch { /* 非 JSON */ }
+          if (!res.ok || !data || data.ok === false) {
+            throw new Error(data?.error || ('播放失败（HTTP ' + res.status + '）'))
+          }
+        } catch (error) {
+          setVoiceMsg({ tone: 'bad', text: String(error?.message ?? error) })
+        } finally {
+          setVoiceBusy('')
+        }
+      }
+
+      const removeVoice = (language) => async () => {
+        setVoiceBusy('remove')
+        setVoiceMsg(null)
+        try {
+          const query = language === 'ja' ? '?language=ja' : '?language=zh'
+          const data = await callApi('/voice/model' + query, { method: 'DELETE', body: '{}' })
+          if (data.voice) setVoice(data.voice)
+        } catch (error) {
+          setVoiceMsg({ tone: 'bad', text: String(error?.message ?? error) })
+        } finally {
+          setVoiceBusy('')
         }
       }
 
@@ -683,6 +1091,134 @@ html[data-hp-theme="dark"][data-hp-chat="on"][data-hp-ready="1"] body::after{mix
             h('span', { 'data-hp': 'hint' }, t('welcomeHint')))),
 
         h('section', { 'data-hp': 'card' },
+          h('div', { 'data-hp': 'section-title' }, t('voiceTitle')),
+          h('div', { 'data-hp': 'row' },
+            h('div', { 'data-hp': 'grow' },
+              h('div', { 'data-hp': 'label' }, t('voiceEnable')),
+              h('div', { 'data-hp': 'hint' }, t('voiceEnableHint'))),
+            h(Toggle, {
+              on: voice.enabled,
+              label: t('voiceEnable'),
+              onChange: (value) => patchVoice({ enabled: value }),
+            })),
+          h('div', { 'data-hp': 'row' },
+            h('div', { 'data-hp': 'grow' },
+              h('div', { 'data-hp': 'label' }, t('voiceAuto')),
+              h('div', { 'data-hp': 'hint' }, t('voiceAutoHint'))),
+            h(Toggle, {
+              on: voice.autoPlay,
+              label: t('voiceAuto'),
+              onChange: (value) => patchVoice({ autoPlay: value }),
+            })),
+          h('div', { 'data-hp': 'row' },
+            h('div', { 'data-hp': 'grow' },
+              h('div', { 'data-hp': 'label' }, t('voiceAutoStart')),
+              h('div', { 'data-hp': 'hint' }, t('voiceAutoStartHint'))),
+            h(Toggle, {
+              on: voice.autoStart === true,
+              label: t('voiceAutoStart'),
+              onChange: (value) => patchVoice({ autoStart: value }),
+            })),
+          h('div', { 'data-hp': 'row' },
+            h('div', { 'data-hp': 'grow' },
+              h('div', { 'data-hp': 'label' }, t('voicePreload')),
+              h('div', { 'data-hp': 'hint' }, t('voicePreloadHint'))),
+            h(Toggle, {
+              on: voice.preload !== false,
+              label: t('voicePreload'),
+              onChange: (value) => patchVoice({ preload: value }),
+            })),
+          h('div', { 'data-hp': 'row' },
+            h('div', { 'data-hp': 'grow' },
+              h('div', { 'data-hp': 'label' }, t('voiceUnload')),
+              h('div', { 'data-hp': 'hint' }, t('voiceUnloadHint'))),
+            h('div', { 'data-hp': 'row' },
+              [15, 60, 120, 240].map((minutes) => h('button', {
+                key: 'unload-' + minutes,
+                type: 'button',
+                'data-hp': 'btn',
+                'data-active': Number(voice.unloadMinutes) === minutes ? '' : undefined,
+                onClick: () => patchVoice({ unloadMinutes: minutes }),
+              }, minutes + ' 分钟')))),
+          h('div', { 'data-hp': 'hint' }, t('unload' + (Number(voice.unloadMinutes) || 60))),
+          h('label', { 'data-hp': 'slider' },
+            h('span', { 'data-hp': 'label' }, t('replyLimit') + ' · ' + replyLimit),
+            h('input', {
+              type: 'range',
+              min: 20,
+              max: 500,
+              step: 10,
+              value: replyLimit,
+              'data-hp-range': '',
+              onChange: (event) => applyReplyLimit(event.target.value),
+            }),
+            h('span', { 'data-hp': 'hint' }, t('replyLimitHint'))),
+          h('label', { 'data-hp': 'slider' },
+            h('span', { 'data-hp': 'label' }, t('mizuBat')),
+            h('input', {
+              key: 'mizu-bat-' + (voice.mizuBat || ''),
+              type: 'text',
+              defaultValue: voice.mizuBat || '',
+              'data-hp-text': '',
+              onBlur: (event) => patchVoice({ mizuBat: event.target.value }),
+            }),
+            h('span', { 'data-hp': 'hint' }, t('mizuBatHint'))),
+          h('label', { 'data-hp': 'slider' },
+            h('span', { 'data-hp': 'label' }, t('mizuUrl')),
+            h('input', {
+              key: 'mizu-url-' + (voice.mizuUrl || ''),
+              type: 'text',
+              defaultValue: voice.mizuUrl || 'http://127.0.0.1:7869',
+              'data-hp-text': '',
+              onBlur: (event) => patchVoice({ mizuUrl: event.target.value }),
+            })),
+          h('label', { 'data-hp': 'slider' },
+            h('span', { 'data-hp': 'label' }, t('mizuModel')),
+            h('input', {
+              key: 'mizu-model-' + (voice.mizuModel || ''),
+              type: 'text',
+              defaultValue: voice.mizuModel || 'gptsovits/v2pro-base',
+              'data-hp-text': '',
+              onBlur: (event) => patchVoice({ mizuModel: event.target.value }),
+            })),
+          h('label', { 'data-hp': 'slider' },
+            h('span', { 'data-hp': 'label' }, t('mizuVoice')),
+            h('input', {
+              key: 'mizu-voice-' + (voice.mizuVoice || ''),
+              type: 'text',
+              defaultValue: voice.mizuVoice || '',
+              'data-hp-text': '',
+              onBlur: (event) => patchVoice({ mizuVoice: event.target.value }),
+            })),
+          h('div', { 'data-hp': 'row' },
+            h('button', {
+              type: 'button',
+              'data-hp': 'btn',
+              onClick: loadVoices,
+            }, t('voiceFetch'))),
+          voiceOptions.length
+            ? h('label', { 'data-hp': 'slider' },
+                h('span', { 'data-hp': 'label' }, t('voiceSelect')),
+                h('select', {
+                  'data-hp-text': '',
+                  value: voice.mizuVoice || '',
+                  onChange: (event) => patchVoice({ mizuVoice: event.target.value }),
+                },
+                h('option', { value: '' }, '—'),
+                voiceOptions.map((item) => h('option', { key: item.id, value: item.id },
+                  (item.name || item.id) + ' · ' + item.id))))
+            : null,
+          h('div', { 'data-hp': 'row' },
+            h('button', {
+              type: 'button',
+              'data-hp': 'btn',
+              disabled: voiceBusy ? '' : undefined,
+              onClick: testVoice('ja'),
+            }, t('voiceTest'))),
+          h('div', { 'data-hp': 'hint' }, t('mizuHint')),
+          voiceMsg ? h('div', { 'data-hp': 'msg', 'data-tone': voiceMsg.tone }, voiceMsg.text) : null),
+
+        h('section', { 'data-hp': 'card' },
           h('div', { 'data-hp': 'row' },
             h('div', { 'data-hp': 'grow' },
               h('div', { 'data-hp': 'section-title' }, t('preview')),
@@ -765,10 +1301,15 @@ html[data-hp-theme="dark"][data-hp-chat="on"][data-hp-ready="1"] body::after{mix
     }
 
     function HaruhiByline(props) {
+      const t = makeT()
       const sessionId = props?.sessionId ? String(props.sessionId) : ''
       const [active, setActive] = React.useState(() => sessionModeCache.get(sessionId) === true)
+      const [voiceCfg, setVoiceCfg] = React.useState(null)
+      const [speaking, setSpeaking] = React.useState(false)
+      const [targetReady, setTargetReady] = React.useState(false)
       const ref = React.useRef(null)
-      const imgRef = React.useRef(null)
+      const targetRef = React.useRef(null)
+      const langRef = React.useRef('ja')
       React.useEffect(() => {
         if (!sessionId) return undefined
         let alive = true
@@ -791,53 +1332,157 @@ html[data-hp-theme="dark"][data-hp-chat="on"][data-hp-ready="1"] body::after{mix
           window.removeEventListener('haruhi-mode', onChange)
         }
       }, [sessionId])
+      React.useEffect(() => {
+        if (!active) return undefined
+        let alive = true
+        callApi('/state?sessionId=' + encodeURIComponent(sessionId))
+          .then((data) => {
+            if (!alive) return
+            const language = data.language === 'ja' ? 'ja' : 'zh'
+            langRef.current = language
+            setVoiceCfg({ ...(data.voice || {}), language })
+          })
+          .catch(() => { /* 没有语音状态就不显示按钮 */ })
+        const onVoice = (event) => {
+          if (event?.detail?.voice) setVoiceCfg(event.detail.voice)
+        }
+        const onLanguage = (event) => {
+          const next = event?.detail?.language === 'ja' ? 'ja' : 'zh'
+          langRef.current = next
+          setVoiceCfg((previous) => (previous ? { ...previous, language: next } : previous))
+        }
+        window.addEventListener('haruhi-voice', onVoice)
+        window.addEventListener('haruhi-language', onLanguage)
+        return () => {
+          alive = false
+          window.removeEventListener('haruhi-voice', onVoice)
+          window.removeEventListener('haruhi-language', onLanguage)
+        }
+      }, [active, sessionId])
+      const speak = React.useCallback(async () => {
+        const target = targetRef.current
+        fetch(API + '/debug', {
+          method: 'POST',
+          credentials: 'same-origin',
+          headers: { 'content-type': 'application/json' },
+          body: JSON.stringify({ type: 'speak', hasTarget: Boolean(target), time: Date.now() }),
+        }).catch(() => {})
+        if (!target) return
+        // 只取“上一条动作行之后、当前动作行之前”的段落
+        const anchor = ref.current
+        const row = anchor ? anchor.parentElement : null
+        let text = ''
+        if (anchor && row) {
+          const bylines = Array.from(document.querySelectorAll('[data-hp-byline]'))
+          const index = bylines.indexOf(anchor)
+          const prevRow = index > 0 ? bylines[index - 1].parentElement : null
+          const FOLLOWING = Node.DOCUMENT_POSITION_FOLLOWING
+          const paragraphs = Array.from(document.querySelectorAll('p')).filter((node) => {
+            const value = (node.innerText || '').trim()
+            if (value.length < 2) return false
+            if (!(node.compareDocumentPosition(row) & FOLLOWING)) return false
+            if (prevRow && !(prevRow.compareDocumentPosition(node) & FOLLOWING)) return false
+            return true
+          })
+          text = paragraphs.map((node) => (node.innerText || '').trim()).join('\n')
+        }
+        if (!text) {
+          const clone = target.cloneNode(true)
+          clone.querySelectorAll('[data-hp-byline],[data-hp-abs-avatar],button,[role="button"],time').forEach((node) => node.remove())
+          text = (clone.innerText || clone.textContent || '').trim()
+        }
+        text = text
+          .replace(/\d{1,2}:\d{2}/g, '')
+          .replace(/复制|点赞|点踩|语音|春日/g, '')
+          .trim()
+        if (!text) return
+        fetch(API + '/debug', {
+          method: 'POST',
+          credentials: 'same-origin',
+          headers: { 'content-type': 'application/json' },
+          body: JSON.stringify({ type: 'speak-text', length: text.length, head: text.slice(0, 60), time: Date.now() }),
+        }).catch(() => {})
+        setSpeaking(true)
+        try {
+          const response = await fetch(API + '/voice/play', {
+            method: 'POST',
+            credentials: 'same-origin',
+            headers: { 'content-type': 'application/json' },
+            body: JSON.stringify({ text: text.slice(0, 260), sessionId }),
+          })
+          const body = await response.text()
+          fetch(API + '/debug', {
+            method: 'POST',
+            credentials: 'same-origin',
+            headers: { 'content-type': 'application/json' },
+            body: JSON.stringify({ type: 'speak-result', status: response.status, body: body.slice(0, 300), time: Date.now() }),
+          }).catch(() => {})
+        } catch (error) {
+          fetch(API + '/debug', {
+            method: 'POST',
+            credentials: 'same-origin',
+            headers: { 'content-type': 'application/json' },
+            body: JSON.stringify({ type: 'speak-error', message: String(error?.message ?? error), time: Date.now() }),
+          }).catch(() => {})
+        } finally {
+          setSpeaking(false)
+        }
+      }, [])
+      React.useEffect(() => {
+        if (!active || !targetReady || !voiceCfg?.enabled || !voiceCfg?.autoPlay) return
+        const messageId = props?.messageId
+          ? String(props.messageId)
+          : (targetRef.current?.innerText || '').trim().slice(0, 60)
+        if (!messageId) return
+        const key = sessionId + ':' + messageId
+        if (autoPlayedIds.has(key)) return
+        const anchor = ref.current
+        if (!anchor) return
+        const all = Array.from(document.querySelectorAll('[data-hp-byline]')).filter((node) => node.getClientRects().length > 0)
+        if (all[all.length - 1] !== anchor) return
+        if (Date.now() < autoPlayCutoff) {
+          autoPlayedIds.add(key)
+          return
+        }
+        autoPlayedIds.add(key)
+        if (autoPlayedIds.size > 300) autoPlayedIds.clear()
+        speak()
+      }, [active, targetReady, voiceCfg, speak, sessionId, props?.messageId])
       React.useLayoutEffect(() => {
         if (!active) return undefined
         const anchor = ref.current
         if (!anchor) return undefined
-        let box = anchor.parentElement
-        while (box && box !== document.body) {
-          const rect = box.getBoundingClientRect()
-          const text = (box.textContent || '').trim()
-          if (rect.height > 100 && rect.height < 700 && rect.width > 200 && text.length > 40) break
-          box = box.parentElement
-        }
-        const target = box && box !== document.body ? box : null
-        let raf = 0
-        const update = () => {
-          if (raf) return
-          raf = requestAnimationFrame(() => {
-            raf = 0
-            const img = imgRef.current
-            if (!img) return
-            if (!target) {
-              img.style.visibility = 'hidden'
-              return
-            }
+
+        // 当前消息正文：优先取动作行前一个节点
+        let target = anchor.parentElement ? anchor.parentElement.previousElementSibling : null
+        if (!target || !(target.textContent || '').trim()) {
+          target = anchor.parentElement
+          while (target && target !== document.body) {
             const rect = target.getBoundingClientRect()
-            const visible = rect.bottom > 8 && rect.top < window.innerHeight - 8
-            img.style.visibility = visible ? 'visible' : 'hidden'
-            img.style.left = Math.max(8, Math.round(rect.left - 32)) + 'px'
-            img.style.top = Math.round(rect.top + 2) + 'px'
-          })
+            const text = (target.textContent || '').trim()
+            if (rect.height >= 36 && rect.height < 2000 && rect.width > 200 && text.length > 8) break
+            target = target.parentElement
+          }
         }
-        update()
-        document.addEventListener('scroll', update, true)
-        window.addEventListener('resize', update)
+        if (!target || target === document.body) return undefined
+        targetRef.current = target
+        setTargetReady(true)
         return () => {
-          if (raf) cancelAnimationFrame(raf)
-          document.removeEventListener('scroll', update, true)
-          window.removeEventListener('resize', update)
+          targetRef.current = null
+          setTargetReady(false)
         }
       }, [active, sessionId])
       if (!sessionId || !active) return null
+      const canVoice = voiceCfg?.enabled && voiceCfg?.mizuVoice
       return h('span', { ref, 'data-hp-byline': '' },
-        h('img', {
-          ref: imgRef,
-          'data-hp-fixed-avatar': '',
-          src: '/api/haruhi-persona/icon',
-          alt: '春日',
-        }))
+        canVoice
+          ? h('button', {
+              type: 'button',
+              'data-hp': 'voice',
+              disabled: speaking ? '' : undefined,
+              onClick: speak,
+            }, speaking ? '…' : t('voicePlay'))
+          : null)
     }
 
     /** 输入框左侧的开关：只切换当前会话，切到春日就按春日说话。 */
@@ -868,7 +1513,9 @@ html[data-hp-theme="dark"][data-hp-chat="on"][data-hp-ready="1"] body::after{mix
           setHaruhiActive(active)
           sessionModeCache.set(String(sessionId), active)
           rememberMode(sessionId, active)
-          setChatWallpaper(active)        } catch (error) {
+          setChatWallpaper(active)
+          autoPlayCutoff = Date.now() + 1200
+        } catch (error) {
           /* 读不到就保持原状，点一下仍会尝试 */
         }
       }, [sessionId])
@@ -1147,6 +1794,39 @@ html[data-hp-theme="dark"][data-hp-chat="on"][data-hp-ready="1"] body::after{mix
         document.head.appendChild(style)
         ctx.effect(() => () => style.remove(), 'haruhi-persona: 设置页样式')
         startStatusHider(ctx)
+        const decorateAvatars = () => {
+          for (const byline of document.querySelectorAll('[data-hp-byline]')) {
+            if (byline.getClientRects().length === 0) continue
+            const row = byline.parentElement
+            // 优先找当前动作行前面最近的段落，避免所有头像都挤到第一条
+            let paragraph = null
+            let previous = row ? row.previousElementSibling : null
+            while (previous && !paragraph) {
+              paragraph = previous.matches && previous.matches('p')
+                ? previous
+                : (previous.querySelector ? previous.querySelector('p') : null)
+              previous = previous.previousElementSibling
+            }
+            if (!paragraph) {
+              let block = byline.parentElement
+              while (block && block !== document.body && !block.querySelector('p')) block = block.parentElement
+              const paragraphs = block && block !== document.body ? block.querySelectorAll('p') : []
+              paragraph = paragraphs.length ? paragraphs[paragraphs.length - 1] : null
+            }
+            if (!paragraph) continue
+            if (paragraph.querySelector('[data-hp-abs-avatar]')) continue
+            if (getComputedStyle(paragraph).position === 'static') paragraph.style.position = 'relative'
+            const img = document.createElement('img')
+            img.src = '/api/haruhi-persona/icon'
+            img.alt = '春日'
+            img.setAttribute('data-hp-abs-avatar', '')
+            img.style.cssText = 'position:absolute;top:0;left:-32px;width:24px;height:24px;border-radius:50%;object-fit:cover;border:2px solid var(--dsw-alias-border-l2);pointer-events:none;display:block;z-index:3;'
+            paragraph.appendChild(img)
+          }
+        }
+        decorateAvatars()
+        const avatarTimer = setInterval(decorateAvatars, 800)
+        ctx.effect(() => () => clearInterval(avatarTimer), 'haruhi-persona: 头像维护')
 
         const syncTheme = () => {
           try {
@@ -1194,7 +1874,7 @@ html[data-hp-theme="dark"][data-hp-chat="on"][data-hp-ready="1"] body::after{mix
           id: 'haruhi-persona',
           order: 35,
           label: () => (activeLang().startsWith('zh') ? DICT.zh.nav : DICT.en.nav),
-        }, () => h(Panel)))
+        }, () => h(PanelBoundary, null, h(Panel))))
 
         slots.inject('conversation.input.left', () => slots.register({
           name: 'conversation.input.left',
