@@ -41,9 +41,9 @@ window.__ModuleLoader__.load({
      * 春日模式下把宿主的状态行藏掉：思考、调取命令、用时。
      * 这些行是宿主界面自己画的，没有公开开关，只能按文案找最近的整行。
      */
-    const STATUS_RE = /正在(?:分析请求|调取命令|调用命令|执行命令|调用工具)|深度(?:求索|思考)中|(?:调取|调用|执行)(?:命令|工具|指令)|思考中|已完成|用时|完成\s*·\s*用时/
+    const STATUS_RE = /正在(?:分析请求|调取命令|调用命令|执行命令|调用工具|生成)|深度(?:求索|思考)中|(?:调取|调用|执行)(?:命令|工具|指令)|思考中|生成中|已完成|用时|完成\s*·\s*用时/
     /** 只有整行本身就是状态时才收掉；别碰输入框下方的用量条。 */
-    const STRICT_RE = /^(正在分析请求|深度求索中|深度思考中|正在调取(?:命令|工具)|正在调用(?:命令|工具)|调取命令|调用命令|已完成|用时\s*\d+\s*秒)/
+    const STRICT_RE = /^(正在分析请求|深度求索中|深度思考中|正在调取(?:命令|工具)|正在调用(?:命令|工具)|调取命令|调用命令|正在生成|生成中|已完成|用时\s*\d+\s*秒)/
     const KEEP_RE = /tok\/s|缓存|命中|上下文|context|tokens?/i
     let haruhiActive = false
     let statusTimer = null
@@ -210,6 +210,10 @@ window.__ModuleLoader__.load({
         mizuBatHint: '填你本机的启动脚本路径，插件才能自动启动/开机自启；留空则需手动开 Mizuoto。',
         replyLimit: '回复字数上限',
         replyLimitHint: '超过这个字数的回复会被截断；建议 80–150，太短会说不完整。',
+        themeLabel: '面板外观',
+        themeAuto: '跟随系统',
+        themeLight: '浅色',
+        themeDark: '深色',
         language: '回复语言',
         languageHint: '中文或日文；只影响春日的回复，不影响界面。',
         langZh: '中文',
@@ -319,6 +323,10 @@ window.__ModuleLoader__.load({
         mizuBatHint: 'Path to your launcher script so the plugin can auto-start it; leave empty to start Mizuoto manually.',
         replyLimit: 'Reply length limit',
         replyLimitHint: 'Replies longer than this are cut; 80–150 works best.',
+        themeLabel: 'Panel theme',
+        themeAuto: 'Auto',
+        themeLight: 'Light',
+        themeDark: 'Dark',
         language: 'Reply language',
         languageHint: 'Chinese or Japanese; affects Haruhi replies only, not the UI.',
         langZh: '中文',
@@ -402,9 +410,9 @@ window.__ModuleLoader__.load({
 
     const CSS = `
 html[data-hp-splashing] body{background-color:#05070c !important;}
-html[data-hp-chat="on"][data-hp-ready="1"] body::after{content:'';position:fixed;inset:0;background:url('/api/haruhi-persona/background?v=4k2') center/cover no-repeat;pointer-events:none;z-index:2147483646;mix-blend-mode:soft-light;opacity:.30;}
-html[data-hp-theme="light"][data-hp-chat="on"][data-hp-ready="1"] body::after{mix-blend-mode:multiply;opacity:.24;}
-html[data-hp-theme="dark"][data-hp-chat="on"][data-hp-ready="1"] body::after{mix-blend-mode:screen;opacity:.38;}
+html[data-hp-chat="on"][data-hp-ready="1"] body::after{content:'';position:fixed;inset:0;background:url('/api/haruhi-persona/background?v=4k2') center/cover no-repeat;pointer-events:none;z-index:2147483646;mix-blend-mode:normal;opacity:.24;}
+html[data-hp-theme="light"][data-hp-chat="on"][data-hp-ready="1"] body::after{mix-blend-mode:multiply;opacity:.55;filter:saturate(.95) brightness(.94);}
+html[data-hp-theme="dark"][data-hp-chat="on"][data-hp-ready="1"] body::after{mix-blend-mode:normal;opacity:.30;}
 [data-hp-splash]{background-color:#05070c !important;}
 [data-hp="page"]{display:flex;flex-direction:column;gap:16px;max-width:720px;padding:2px 2px 28px;color:var(--dsw-alias-label-primary);font-size:13px;}
 [data-hp="head"]{display:flex;flex-direction:column;gap:4px;}
@@ -470,6 +478,35 @@ html[data-hp-theme="dark"][data-hp-chat="on"][data-hp-ready="1"] body::after{mix
 [data-hp="safety-pre"]{margin:7px 0 0;white-space:pre-wrap;word-break:break-word;max-height:160px;overflow:auto;font-family:ui-monospace,SFMono-Regular,Consolas,monospace;font-size:10px;line-height:15px;color:var(--dsw-alias-label-secondary);}
 [data-hp-prompt-editor]{width:100%;box-sizing:border-box;min-height:200px;resize:vertical;padding:9px 10px;border-radius:8px;border:1px solid var(--dsw-alias-border-l1);background:var(--dsw-alias-bg-layer-2);color:var(--dsw-alias-label-primary);font-family:ui-monospace,SFMono-Regular,Consolas,monospace;font-size:11px;line-height:17px;}
 [data-hp-prompt-editor]:focus{outline:2px solid var(--dsw-alias-brand-primary);outline-offset:1px;}
+
+/* —— 插件面板主题（只作用于本插件设置页） —— */
+[data-hp="page"]{--hp-surface:var(--dsw-alias-bg-layer-1);--hp-surface-2:var(--dsw-alias-bg-layer-2);--hp-line:var(--dsw-alias-border-l1);--hp-text:var(--dsw-alias-label-primary);--hp-muted:var(--dsw-alias-label-secondary);--hp-accent:#b7791f;}
+[data-hp="page"][data-hp-panel-theme="dark"]{--hp-surface:#161922;--hp-surface-2:#1e222c;--hp-line:rgba(255,255,255,.09);--hp-text:#eef2f8;--hp-muted:#9aa4b4;--hp-accent:#f5c451;}
+[data-hp="page"][data-hp-panel-theme="light"]{--hp-surface:#ffffff;--hp-surface-2:#f5f6f8;--hp-line:rgba(16,24,40,.10);--hp-text:#1b202b;--hp-muted:#5f6b7c;--hp-accent:#b7791f;}
+@media (prefers-color-scheme: dark){
+  [data-hp="page"][data-hp-panel-theme="auto"]{--hp-surface:#161922;--hp-surface-2:#1e222c;--hp-line:rgba(255,255,255,.09);--hp-text:#eef2f8;--hp-muted:#9aa4b4;--hp-accent:#f5c451;}
+}
+[data-hp="page"]{color:var(--hp-text);}
+[data-hp="page"] [data-hp="head"]{padding:18px 18px 16px;border-radius:16px;border:1px solid var(--hp-line);background:linear-gradient(135deg,color-mix(in srgb,var(--hp-accent) 14%,var(--hp-surface)) 0%,var(--hp-surface) 62%);}
+[data-hp="page"] [data-hp="title"]{font-size:19px;line-height:26px;}
+[data-hp="page"] [data-hp="badge"]{border-color:color-mix(in srgb,var(--hp-accent) 45%,var(--hp-line));color:var(--hp-accent);background:color-mix(in srgb,var(--hp-accent) 10%,transparent);}
+[data-hp="page"] [data-hp="sub"]{color:var(--hp-muted);}
+[data-hp="page"] [data-hp="card"]{background:var(--hp-surface);border:1px solid var(--hp-line);border-radius:14px;box-shadow:0 1px 2px rgba(0,0,0,.06);}
+[data-hp="page"] [data-hp="card"]:hover{border-color:color-mix(in srgb,var(--hp-accent) 28%,var(--hp-line));}
+[data-hp="page"] [data-hp="section-title"]{color:var(--hp-muted);letter-spacing:.05em;}
+[data-hp="page"] [data-hp="hint"]{color:var(--hp-muted);}
+[data-hp="page"] [data-hp="val"]{color:var(--hp-accent);}
+[data-hp="page"] [data-hp-range]{accent-color:var(--hp-accent);}
+[data-hp="page"] [data-hp="switch"][data-on]{background:var(--hp-accent);}
+[data-hp="page"] [data-hp="preset"]{border-radius:11px;background:var(--hp-surface-2);border-color:var(--hp-line);}
+[data-hp="page"] [data-hp="preset"][data-active]{border-color:var(--hp-accent);}
+[data-hp="page"] [data-hp="btn"]{border-color:var(--hp-line);background:var(--hp-surface-2);}
+[data-hp="page"] [data-hp="btn"][data-active], [data-hp="page"] [data-hp="btn"][data-primary]{border-color:var(--hp-accent);color:var(--hp-accent);}
+[data-hp="page"] [data-hp-text], [data-hp="page"] [data-hp-prompt-editor]{border-color:var(--hp-line);background:var(--hp-surface-2);color:var(--hp-text);}
+[data-hp="theme-switch"]{margin-left:auto;display:inline-flex;padding:3px;gap:2px;border-radius:999px;border:1px solid var(--hp-line);background:var(--hp-surface-2);}
+[data-hp="theme-btn"]{border:0;border-radius:999px;padding:4px 10px;font-size:11px;line-height:16px;font-family:inherit;color:var(--hp-muted);background:transparent;cursor:pointer;white-space:nowrap;}
+[data-hp="theme-btn"]:hover{color:var(--hp-text);}
+[data-hp="theme-btn"][data-active]{color:#14161b;background:var(--hp-accent);font-weight:600;}
 @keyframes hp-spin{to{transform:rotate(360deg)}}
 @keyframes hp-in{0%{transform:scale(.88);opacity:0}100%{transform:scale(1);opacity:1}}
 @keyframes hp-rise{0%{opacity:0;transform:translateY(8px)}100%{opacity:1;transform:none}}
@@ -717,6 +754,7 @@ html[data-hp-theme="dark"][data-hp-chat="on"][data-hp-ready="1"] body::after{mix
       const [welcome, setWelcome] = React.useState('欢迎，鳕鱼')
       const [language, setLanguage] = React.useState('ja')
       const [replyLimit, setReplyLimit] = React.useState(120)
+      const [theme, setTheme] = React.useState('auto')
       const [voiceOptions, setVoiceOptions] = React.useState([])
       const [voice, setVoice] = React.useState({ enabled: false, autoPlay: false, hasKey: false, modelId: '', modelIdJa: '', voiceName: '', voiceNameJa: '' })
       const [voiceKey, setVoiceKey] = React.useState('')
@@ -747,6 +785,7 @@ html[data-hp-theme="dark"][data-hp-chat="on"][data-hp-ready="1"] body::after{mix
         setWelcome(typeof data.welcome === 'string' ? data.welcome : '欢迎，鳕鱼')
         setLanguage('ja')
         setReplyLimit(Number.isFinite(Number(data.replyLimit)) ? Number(data.replyLimit) : 120)
+        setTheme('auto')
         setVoice(data.voice && typeof data.voice === 'object'
           ? {
             enabled: data.voice.enabled === true,
@@ -887,6 +926,14 @@ html[data-hp-theme="dark"][data-hp-chat="on"][data-hp-ready="1"] body::after{mix
         }
       }
 
+      const applyTheme = async (value) => {
+        const next = 'auto'
+        setTheme(next)
+        try {
+          await callApi('/config', { method: 'POST', body: JSON.stringify({ theme: next }) })
+        } catch { /* 保存失败保持当前外观 */ }
+      }
+
       const applyReplyLimit = async (value) => {
         const next = Math.max(20, Math.min(500, Math.round(Number(value) || 120)))
         setReplyLimit(next)
@@ -1012,11 +1059,19 @@ html[data-hp-theme="dark"][data-hp-chat="on"][data-hp-ready="1"] body::after{mix
         return h('div', { 'data-hp': 'page' }, h('div', { 'data-hp': 'center' }, t('loading')))
       }
 
-      return h('div', { 'data-hp': 'page' },
+      return h('div', { 'data-hp': 'page', 'data-hp-panel-theme': theme },
         h('header', { 'data-hp': 'head' },
           h('div', { 'data-hp': 'title-row' },
             h('h2', { 'data-hp': 'title' }, t('title')),
-            h('span', { 'data-hp': 'badge' }, t('badge'))),
+            h('span', { 'data-hp': 'badge' }, t('badge')),
+            h('div', { 'data-hp': 'theme-switch' },
+              ['auto'].map((value) => h('button', {
+                key: value,
+                type: 'button',
+                'data-hp': 'theme-btn',
+                'data-active': theme === value ? '' : undefined,
+                onClick: () => applyTheme(value),
+              }, value === 'auto' ? t('themeAuto') : value === 'light' ? t('themeLight') : t('themeDark'))))),
           h('p', { 'data-hp': 'sub' }, t('subtitle'))),
 
         h('section', { 'data-hp': 'card' },
@@ -1295,9 +1350,7 @@ html[data-hp-theme="dark"][data-hp-chat="on"][data-hp-ready="1"] body::after{mix
         }
       }, [sessionId])
       if (!sessionId || !active) return null
-      return h('div', { 'data-hp-turn-head': '' },
-        h('img', { src: '/api/haruhi-persona/icon', alt: '春日' }),
-        h('span', null, '春日'))
+      return null
     }
 
     function HaruhiByline(props) {
@@ -1453,10 +1506,21 @@ html[data-hp-theme="dark"][data-hp-chat="on"][data-hp-ready="1"] body::after{mix
         const anchor = ref.current
         if (!anchor) return undefined
 
-        // 当前消息正文：优先取动作行前一个节点
-        let target = anchor.parentElement ? anchor.parentElement.previousElementSibling : null
-        if (!target || !(target.textContent || '').trim()) {
-          target = anchor.parentElement
+        // 当前消息正文段落：从动作行往前找最近的一个 p
+        const row = anchor.parentElement
+        let target = null
+        let candidate = row ? row.previousElementSibling : null
+        while (candidate && !target) {
+          if (candidate.matches && candidate.matches('p')) {
+            target = candidate
+          } else if (candidate.querySelectorAll) {
+            const paragraphs = candidate.querySelectorAll('p')
+            if (paragraphs.length) target = paragraphs[paragraphs.length - 1]
+          }
+          candidate = candidate.previousElementSibling
+        }
+        if (!target) {
+          target = row
           while (target && target !== document.body) {
             const rect = target.getBoundingClientRect()
             const text = (target.textContent || '').trim()
@@ -1795,26 +1859,46 @@ html[data-hp-theme="dark"][data-hp-chat="on"][data-hp-ready="1"] body::after{mix
         ctx.effect(() => () => style.remove(), 'haruhi-persona: 设置页样式')
         startStatusHider(ctx)
         const decorateAvatars = () => {
+          const paragraphs = Array.from(document.querySelectorAll('p')).filter((node) => {
+            if (!node.getClientRects().length) return false
+            if (node.closest('form, textarea, [contenteditable="true"], [role="textbox"], button, [data-hp-byline]')) return false
+            return (node.textContent || '').trim().length >= 1
+          })
           for (const byline of document.querySelectorAll('[data-hp-byline]')) {
             if (byline.getClientRects().length === 0) continue
-            const row = byline.parentElement
-            // 优先找当前动作行前面最近的段落，避免所有头像都挤到第一条
+            const bylineRect = byline.getBoundingClientRect()
             let paragraph = null
-            let previous = row ? row.previousElementSibling : null
-            while (previous && !paragraph) {
-              paragraph = previous.matches && previous.matches('p')
-                ? previous
-                : (previous.querySelector ? previous.querySelector('p') : null)
-              previous = previous.previousElementSibling
-            }
-            if (!paragraph) {
-              let block = byline.parentElement
-              while (block && block !== document.body && !block.querySelector('p')) block = block.parentElement
-              const paragraphs = block && block !== document.body ? block.querySelectorAll('p') : []
-              paragraph = paragraphs.length ? paragraphs[paragraphs.length - 1] : null
+            let best = Infinity
+            for (const node of paragraphs) {
+              const nodeRect = node.getBoundingClientRect()
+              if (nodeRect.left > bylineRect.left + 120) continue
+              const distance = Math.abs(nodeRect.top - bylineRect.top)
+              if (distance < best) {
+                best = distance
+                paragraph = node
+              }
             }
             if (!paragraph) continue
+            // 向上找到这条回复的第一段（同一组连续段落）
+            let index = paragraphs.indexOf(paragraph)
+            let first = paragraph
+            while (index > 0) {
+              const prev = paragraphs[index - 1]
+              const gap = first.getBoundingClientRect().top - prev.getBoundingClientRect().top
+              if (gap > 150) break
+              first = prev
+              index -= 1
+            }
+            paragraph = first
             if (paragraph.querySelector('[data-hp-abs-avatar]')) continue
+            // 同一条回复被拆成多段时，只给第一段挂头像
+            const paragraphTop = paragraph.getBoundingClientRect().top
+            const nearby = Array.from(document.querySelectorAll('[data-hp-abs-avatar]')).some((img) => {
+              const host = img.parentElement
+              if (!host) return false
+              return Math.abs(host.getBoundingClientRect().top - paragraphTop) < 90
+            })
+            if (nearby) continue
             if (getComputedStyle(paragraph).position === 'static') paragraph.style.position = 'relative'
             const img = document.createElement('img')
             img.src = '/api/haruhi-persona/icon'
@@ -1826,12 +1910,31 @@ html[data-hp-theme="dark"][data-hp-chat="on"][data-hp-ready="1"] body::after{mix
         }
         decorateAvatars()
         const avatarTimer = setInterval(decorateAvatars, 800)
-        ctx.effect(() => () => clearInterval(avatarTimer), 'haruhi-persona: 头像维护')
-
+        const avatarObserver = new MutationObserver(() => {
+          decorateAvatars()
+        })
+        avatarObserver.observe(document.body, { childList: true, subtree: true })
+        ctx.effect(() => () => {
+          clearInterval(avatarTimer)
+          avatarObserver.disconnect()
+        }, 'haruhi-persona: 头像维护')
         const syncTheme = () => {
           try {
-            const raw = getComputedStyle(document.documentElement).getPropertyValue('--dsw-alias-bg-base').trim()
-              || getComputedStyle(document.body).backgroundColor
+            const themeAttr = document.documentElement.getAttribute('data-theme')
+              || document.body.getAttribute('data-theme')
+              || document.documentElement.getAttribute('data-dsw-theme')
+            let raw = String(themeAttr || '').toLowerCase()
+            if (!raw.includes('light') && !raw.includes('dark')) {
+              raw = getComputedStyle(document.documentElement).getPropertyValue('--dsw-alias-bg-base').trim()
+              if (!raw || /rgba\([^)]*,\s*0\s*\)/.test(raw)) {
+                let el = document.body
+                while (el && el !== document.documentElement) {
+                  const bg = getComputedStyle(el).backgroundColor
+                  if (bg && bg !== 'transparent' && !/rgba\([^)]*,\s*0\s*\)/.test(bg)) { raw = bg; break }
+                  el = el.parentElement
+                }
+              }
+            }
             let lum = 24
             const match = String(raw).match(/rgba?\(([^)]+)\)/)
             const hex = String(raw).match(/^#([0-9a-f]{6})/i)

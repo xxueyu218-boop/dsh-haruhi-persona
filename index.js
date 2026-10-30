@@ -133,7 +133,8 @@ function normalizeState(raw, seed = {}) {
   const language = 'ja'
   const replyCandidate = Number(src.replyLimit ?? seedObj.replyLimit ?? 120)
   const replyLimit = Number.isFinite(replyCandidate) ? Math.max(0, Math.min(500, Math.round(replyCandidate))) : 120
-  return { enabled, preset, params, mode, customPrompt, welcome, voice, language, replyLimit }
+  const theme = 'auto'
+  return { enabled, preset, params, mode, customPrompt, welcome, voice, language, replyLimit, theme }
 }
 
 function readBody(req, limit = 64 * 1024) {  return new Promise((resolve, reject) => {
@@ -800,6 +801,7 @@ export function apply(ctx, config = {}) {
       customPrompt: state.customPrompt,
       welcome: state.welcome,
       language: state.language,
+      theme: state.theme,
       replyLimit: state.replyLimit,
       voice: {
         enabled: state.voice.enabled,
@@ -1559,6 +1561,7 @@ export function apply(ctx, config = {}) {
             if (typeof body.customPrompt === 'string') state.customPrompt = body.customPrompt.slice(0, 20000)
             if (typeof body?.welcome === 'string') state.welcome = body.welcome.slice(0, 80)
             if (typeof body?.language === 'string') state.language = body.language === 'ja' ? 'ja' : 'zh'
+            if (body?.theme === 'auto' || body?.theme === 'dark' || body?.theme === 'light') state.theme = 'auto'
             if (body?.replyLimit !== undefined) {
               const nextLimit = Number(body.replyLimit)
               if (Number.isFinite(nextLimit)) state.replyLimit = Math.max(0, Math.min(500, Math.round(nextLimit)))
